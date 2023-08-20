@@ -10,7 +10,7 @@ class CourseType extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category'];
+    protected $guarded = [];
 
     public function courses(): HasMany
     {

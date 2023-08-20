@@ -11,7 +11,7 @@ class Course extends Model
     use HasFactory;
 
     protected $primaryKey = 'code';
-    protected $fillable = ['code', 'title', 'credit', 'semester_id', 'department_id', 'coursetype_id'];
+    protected $guarded = [];
 
     public function semester(): BelongsTo
     {
@@ -23,8 +23,8 @@ class Course extends Model
         return $this->belongsTo(Department::class);
     }
 
-    public function coursetype(): BelongsTo
+    public function courseType(): BelongsTo
     {
-        return $this->belongsTo(Coursetype::class);
+        return $this->belongsTo(CourseType::class);
     }
 }

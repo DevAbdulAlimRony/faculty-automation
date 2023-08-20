@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('floors', function (Blueprint $table) {
             $table->id();
-            $table->integer('number')->unique();
+            $table->unsignedInteger('number')->unique();
             $table->timestamps();
         });
     }

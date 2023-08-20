@@ -1,19 +1,24 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Session;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-
     public function up(): void
     {
         Schema::create('semesters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('session_id');
-            $table->integer('semester')->unique();
-            $table->foreign('session_id')->references('id')->on('sessions')->onDelete('set null');
+
+            $table->unsignedInteger('semester_num')->unique();
+
+            $table->foreignIdFor(Session::class)
+                  ->nullable()
+                  ->constrained()
+                  ->onDelete('set null');
+
             $table->timestamps();
         });
     }

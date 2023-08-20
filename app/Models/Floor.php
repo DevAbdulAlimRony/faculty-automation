@@ -10,7 +10,7 @@ class Floor extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['number'];
+    protected $guarded = [];
 
     public function departments(): HasMany{
         return $this->hasMany(Department::class);

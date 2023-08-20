@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Block;
+use App\Models\Floor;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -10,15 +12,21 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignIdFor(Block::class)
+                  ->nullable()
+                  ->constrained()
+                  ->nullOnDelete();
+
+            $table->foreignIdFor(Floor::class)
+                  ->nullable()
+                  ->constrained()
+                  ->nullOnDelete();
+
             $table->string('short_name', 10)->unique();
             $table->string('name', 255)->unique();
-            $table->unsignedBigInteger('block_id')->nullable();
-            $table->unsignedBigInteger('floor_id')->nullable();
+
             $table->timestamps();
-
-            $table->foreign('block_id')->references('id')->on('blocks')->onDelete('set null');
-            $table->foreign('floor_id')->references('id')->on('floors')->onDelete('set null');
-
         });
     }
 

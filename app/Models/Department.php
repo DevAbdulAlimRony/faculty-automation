@@ -11,7 +11,7 @@ class Department extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['short_name', 'name', 'block_id', 'floor_id'];
+    protected $guarded = [];
 
     public function block(): BelongsTo
     {

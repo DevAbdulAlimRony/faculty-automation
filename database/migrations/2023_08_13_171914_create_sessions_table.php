@@ -11,9 +11,11 @@ return new class extends Migration
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
+
             $table->string('years', 255)->unique();
-            $table->integer('batch_number', 255)->unique();
+            $table->unsignedInteger('batch_number')->unique();
             $table->string('batch_name', 255)->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });

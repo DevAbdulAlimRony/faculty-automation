@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Department;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -10,13 +11,17 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->integer('number', 10);
+
+            $table->string('number', 10);
             $table->string('name', 255)->nullable();
             $table->string('category', 255);
-            $table->timestamps();
 
-            $table->unsignedBigInteger('department_id')->nullable();
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('set null');
+            $table->foreignIdFor(Department::class)
+                  ->nullable()
+                  ->constrained()
+                  ->nullOnDelete();
+
+            $table->timestamps();
         });
     }
 
