@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Designation extends Model
+class StudentProfile extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function teachers(): HasMany
+    public function student(): belongsTo
     {
-        return $this->hasMany(Teacher::class);
+        return $this->belongsTo(Student::class);
     }
 }

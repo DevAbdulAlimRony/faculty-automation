@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignIdFor(Session::class)
                   ->nullable()
                   ->constrained()
-                  ->onDelete('set null');
+                  ->onDelete('set null')
+                  ->onUpdate('cascade');
 
             $table->timestamps();
         });

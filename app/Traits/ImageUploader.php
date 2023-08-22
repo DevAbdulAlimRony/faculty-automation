@@ -3,6 +3,7 @@ namespace App\Traits;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 trait ImageUploader
 {

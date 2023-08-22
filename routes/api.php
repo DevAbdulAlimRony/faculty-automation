@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1/admin', 'as' => 'v1.admin.', 'namespace' => 'App\Http\Controllers\Api\V1\Admin'], function () {
 
     //Page Settings
-    Route::apiResource('settings', SettingController::class)->except(['show']);
+    Route::apiResource('settings', SettingController::class)->only(['update']);
 
     //About
     Route::apiResource('about', AboutController::class)->except(['show']);

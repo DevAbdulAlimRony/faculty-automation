@@ -20,17 +20,20 @@ return new class extends Migration
             $table->foreignIdFor(Semester::class)
                   ->nullable()
                   ->constrained()
-                  ->nullOnDelete();
+                  ->nullOnDelete()
+                  ->onUpdate('cascade');
 
             $table->foreignIdFor(Department::class)
                   ->nullable()
                   ->constrained()
-                  ->nullOnDelete();
+                  ->nullOnDelete()
+                  ->onUpdate('cascade');
 
             $table->foreignIdFor(CourseType::class)
                   ->nullable()
                   ->constrained()
-                  ->nullOnDelete();
+                  ->nullOnDelete()
+                  ->onUpdate('cascade');
 
             $table->timestamps();
         });

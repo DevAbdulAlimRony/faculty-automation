@@ -16,12 +16,14 @@ return new class extends Migration
             $table->foreignIdFor(Block::class)
                   ->nullable()
                   ->constrained()
-                  ->nullOnDelete();
+                  ->nullOnDelete()
+                  ->onUpdate('cascade');
 
             $table->foreignIdFor(Floor::class)
                   ->nullable()
                   ->constrained()
-                  ->nullOnDelete();
+                  ->nullOnDelete()
+                  ->onUpdate('cascade');
 
             $table->string('short_name', 10)->unique();
             $table->string('name', 255)->unique();

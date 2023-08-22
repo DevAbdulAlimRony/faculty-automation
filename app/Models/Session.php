@@ -18,8 +18,8 @@ class Session extends Model
         return $this->hasMany(Semester::class);
     }
 
-    // public function students()
-    // {
-    //     return $this->hasMany(Student::class);
-    // }
+    public function students(): HasMany
+    {
+        return $this->hasMany(Student::class);
+    }
 }

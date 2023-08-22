@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title')
                 ->default('CSE PSTU');
             $table->string('short_name')
-                ->default('CSE PSTU');
+                ->default('cse pstu');
 
             $table->string('author')
                 ->default('Patuakhali Science and Technology University');
@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('welcome-title')
                 ->default('Faculty of Computer Science and Engineering');
             $table->string('video')->nullable();
+
             $table->string('cse_club_link')
                 ->default('https://www.facebook.com/CSEClubPSTU/');
             $table->string('admission_link')
