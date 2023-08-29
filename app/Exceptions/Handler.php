@@ -3,7 +3,6 @@ namespace App\Exceptions;
 
 use Throwable;
 use App\Traits\ApiResponser;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
@@ -37,24 +36,24 @@ class Handler extends ExceptionHandler
         return match (true) {
             $e instanceof ValidationException => $this->convertValidationExceptionToResponse($e, $request),
             $e instanceof ModelNotFoundException => $this->handleModelNotFoundException($e),
-            $e instanceof AuthenticationException => $this->unauthenticated($e, $request),
+            $e instanceof AuthenticationException => $this->unauthenticated($request, $e),
             $e instanceof AuthorizationException => $this->exceptionResponse($e->getMessage(), 403),
             $e instanceof NotFoundHttpException => $this->exceptionResponse('There is no existence of this URL you specified', 404),
             $e instanceof AccessDeniedException => $this->exceptionResponse('Access Denied', 403),
 
             $e instanceof MethodNotAllowedHttpException => $this->exceptionResponse('Bad Request! You are accessing invalid method', 405),
             $e instanceof QueryException => $this->foreignKeyOperationException($e, $request),
-            $e instanceof HttpException => $this->exceptionResponse($e->getMessage(), $e->getStatusCode()),
+            $e instanceof HttpException => $this->exceptionResponse($e->getMessage(), $e->getCode()),
 
             default => config('app.debug')
             ? parent::render($request, $e)
-            : $this->errorResponse('Server Busy. Try later', 500),
+            : $this->exceptionResponse('Server Busy. Try later', 500),
         };
     }
 
     private function handleModelNotFoundException(ModelNotFoundException $e){
          $modelName = ucwords(class_basename($e->getModel()));
-         return $this->exceptionResponse("{$modelName} Not Found", 404);
+         return $this->exceptionResponse("You didn't add any {$modelName} yet", 404);
     }
 
     protected function convertValidationExceptionToResponse(ValidationException $e, $request){
@@ -70,7 +69,7 @@ class Handler extends ExceptionHandler
         $errorCode = $e->errorInfo[1];
 
         if($errorCode == 1451){
-            return $this->errorResponse('Cannot remove this permanently. It is related with any other resources.', 409);
+            return $this->exceptionResponse('Cannot remove this permanently. It is related with any other resources.', 409);
         }
     }
 }

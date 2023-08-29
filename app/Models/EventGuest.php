@@ -11,6 +11,7 @@ class EventGuest extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $touches = ['events'];
     protected $guarded = [];
 
     public function event(): BelongsTo{

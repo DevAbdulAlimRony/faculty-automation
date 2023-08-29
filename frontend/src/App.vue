@@ -6,6 +6,11 @@
     <router-view></router-view>
 </template>
 
-<style scoped>
-
+<style>
+    #app, body{
+        width: 100%;
+        margin: 0;
+        background-color: white;
+        padding: 0;
+    }
 </style>

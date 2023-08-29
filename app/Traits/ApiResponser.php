@@ -2,6 +2,7 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -14,12 +15,20 @@ trait ApiResponser{
         return response()->json($data, $code);
     }
 
-    protected function responseShowAll(Collection $collection, $code = 200){
-        if (!$collection) {
-            return response()->json(['message' => "Nothing Added"], 404);
+    private function nothingAdded($data){
+        if (!$data) {
+            return response()->json(['message' => "You Added Nothing Here"], 404);
         }
+    }
 
-        //transformer here...
+    protected function responseShowOne(Model $model, $code = 200){
+        $this->nothingAdded($model);
+        return $this->successResponse($model, $code);
+    }
+
+    protected function responseShowAll(Collection $collection, $code = 200){
+        $this->nothingAdded($collection);
+        //Abdul Alim will add transformer here later...
         $collection = $this->filterData($collection);
         $collection = $this->sortData($collection);
         $collection = $this->paginate($collection);

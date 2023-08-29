@@ -2,92 +2,142 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@layer base{
+    :root{
+        /* Font Family */
+        --title-font: "Playfair Display";
+        --stylish-font: 'El Messiri';
+        --normal-font: 'Poppins';
+        --para-font: 'Roboto';
+        --fallback-font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+        /*Fonts Size*/
+        --heading-size: clamp(2.25rem, 2vw + 1.5rem, 3.25rem);
+        --sub-heading-size: 2.25rem;
+        --para-size: calc(.35842vw + .95296em);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
+        /* Colors */
+        --faculty-color: rgb(223, 173, 103);
+        --faculty-color-20: rgba(223, 173, 103, 0.2);
+        --faculty-color-40: rgba(223, 173, 103, 0.4);
+        --faculty-color-70: rgba(223, 173, 103, 0.7);
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+        --bus-color: rgb(15, 169, 253);
+        --bus-color-5: rgba(15, 169, 253, 0.05);
+        --bus-color-10: rgba(15, 169, 253, 0.1);
+        --bus-color-20: rgba(15, 169, 253, 0.2);
+        --bus-color-45: rgba(15, 169, 253, 0.45);
+        --bus-color-70: rgba(15, 169, 253, 0.7);
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+        /* configuration */
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        color-scheme: light dark;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-text-size-adjust: 100%;
+    }
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+@layer utilities {
+
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+@layer components{
+    [type="checkbox"], [type="radio"] {
+        @apply text-bus;
+    }
+    [type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus {
+        outline: 0 solid transparent;
+        outline-offset: 0px;
+        --tw-ring-inset: 0px;
+        --tw-ring-offset-width: 0px;
+        --tw-ring-offset-color: transparent;
+        --tw-ring-color: transparent;
+        border-color: transparent;
+    }
+    .styli-input:focus ~ .input-text{
+        @apply text-bus bg-white transform -translate-y-7 -translate-x-4 scale-75;
+    }
 
-.card {
-  padding: 2em;
-}
+    .guest-btn, .guest-btn:link, .guest-btn:visited{
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+        @apply tracking-[1px] font-bold rounded-sm py-[13px] px-[28px] uppercase ease-in-out duration-75;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
+    .guest-btn:focus{
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+        @apply outline-dashed outline-offset-2 outline-faculty;
+    }
+    .guest-btn:hover{
+        text-shadow: none;
+    }
+
+    .stylish-btn, .stylish-btn:link, .stylish-btn:visited{
+        @apply relative overflow-hidden;
+    }
+    .stylish-btn::before{
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        @apply bg-bus;
+        transition: 0.8s;
+        top: 0;
+        border-radius: 0 0 50% 50%;
+    }
+    .transparent-btn, .transparent-btn:link, .transparent-btn:visited{
+        @apply text-bus bg-transparent shadow-md;
+    }
+    .transparent-btn:hover{
+        @apply text-white shadow-none;
+    }
+    .filled-btn, .filled-btn:link, .filled-btn:visited{
+        @apply bg-bus text-white;
+    }
+    .filled-btn:hover{
+        @apply text-bus shadow-md;
+    }
+    .transparent-btn::before, .filled-btn:hover::before{
+        height: 0%;
+    }
+    .transparent-btn:hover::before, .filled-btn::before {
+        height: 180%;
+    }
+    .start-positioned-card{
+        @apply p-3 border rounded-lg shadow grid justify-items-start text-black;
+    }
+    .center-positioned-card{
+        @apply p-3 border rounded-lg shadow grid justify-items-center text-black;
+    }
+    .white-card{
+        @apply bg-white;
+    }
+    .faculty-colored-card{
+        @apply bg-faculty-40;
+
+    }
+    .bus-colored-card{
+        @apply bg-bus-20;
+    }
+    .bus-colored-card h2{
+        @apply text-bus;
+    }
+    .faculty-colored-card h2{
+        @apply text-faculty;
+
+    }
+    .link-icon{
+        transition: all ease 1s    ;
+        -webkit-transition: all ease 1s    ;
+        -moz-transition: all ease 1s    ;
+        -ms-transition: all ease 1s    ;
+        -o-transition: all ease 1s    ;
+}
+    .link-icon:hover{
+        margin-left: 10px;
+    }
+
 }

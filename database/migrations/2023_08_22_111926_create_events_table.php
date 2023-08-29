@@ -24,6 +24,7 @@ return new class extends Migration
             $table->time('end_time')->nullable();
             $table->text('about');
             $table->string('registration_link')->nullable();
+            $table->string('facebook_link')->nullable();
             $table->timestamps();
         });
     }

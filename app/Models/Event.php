@@ -15,10 +15,17 @@ class Event extends Model
 
     protected $guarded = [];
 
+    protected $with = ['eventType', 'eventGuests', 'collaborations'];
+
     public function eventType(): BelongsTo
     {
 
         return $this->belongsTo(EventType::class);
+    }
+
+    public function eventGuests(): HasMany{
+
+        return $this->hasMany(EventGuest::class);
     }
 
     public function collaborations(): HasMany

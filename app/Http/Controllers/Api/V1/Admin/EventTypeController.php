@@ -2,49 +2,48 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\EventType;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 
-class EventTypeController extends Controller
+class EventTypeController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $type = EventType::withCount('events')->get();
+        return $this->responseShowAll($type);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+        ]);
+
+        $type = EventType::create($validatedData);
+        return $this->responseCreatedDeleted($type, 'store');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(EventType $eventType)
     {
-        //
+        return $this->responseShowOne($eventType);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, EventType $eventType)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+        ]);
+
+        $oldValue = $eventType->getOriginal('title');
+
+        $eventType->update($validatedData);
+        return $this->responseUpdated($eventType, $oldValue, $eventType->title);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(EventType $eventType)
     {
-        //
+        $data = $eventType->delete();
+        return $this->responseCreatedDeleted($data, 'delete');
     }
 }
